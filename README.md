@@ -20,7 +20,7 @@ I tried to make it with next-auth library but it's very much confusing including
 - Laravel Sanctum (Token Based Authentication)
 - Next.js Pages Router With API Routes Handler
 
-> Note: Do not install laravel breeze api package instead use this one mentioned in the repo because it uses token based authentication instead of sessions
+> Note: Do not install laravel breeze api package instead use this one mentioned in the repo because it uses token based authentication instead of sessions .
 
 ## Installation Laravel Setup
 
