@@ -105,8 +105,6 @@ Finally, run the application via `npm run dev`. The application will be availabl
 npm run dev
 ```
 
-> Note: Currently, we recommend using `localhost` during local development of your backend and frontend to avoid CORS "Same-Origin" issues.
-
 ## How This Starter Kit Works
 ### Calling APIs via Backend Proxy (Nextjs Backend)
 
