@@ -61,11 +61,11 @@ return [
     */
 
     // -- Example of how to set the expiration time --
-    // 'access_token_expiration' => 60 * 24, // 1 day
-    // 'refresh_token_expiration' => 60 * 24 * 7, // 7 days
+    'access_token_expiration' => 60 * 24, // 1 day
+    'refresh_token_expiration' => 60 * 24 * 7, // 7 days
 
-    'access_token_expiration' => 60, // 1 minute
-    'refresh_token_expiration' =>  60 * 2, // 2 minutes
+    // 'access_token_expiration' => 60, // 1 minute
+    // 'refresh_token_expiration' =>  60 * 2, // 2 minutes
 
     /*
     |--------------------------------------------------------------------------

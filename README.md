@@ -39,19 +39,35 @@ composer install
 ```
 
 ```
-php artisan migrate
+php artisan key:generate
 ```
 
+```
+php artisan migrate
+```
 
 ```
 php artisan db:seed
 ```
 
+
+
+### Important:
+- Next, ensure that you have to add the Laravel `API_URL` and `FRONTEND_URL` environment variables in the `.env` file or you might face some issues. 
+```
+API_URL=http://localhost:8000/api
+FRONTEND_URL=http://localhost:3000
+```
+
+- After defining the appropriate environment variables, you may serve the Laravel application using the below Artisan command:
+
 ```
 php artisan serve --host=localhost --port=8000
 ```
 
+
 ### Additional Information:
+- Email verification url and mail is set in the Notifications/VerifyEmail.php file
 - Reset password url is set in the AuthServiceProvider.php file
 
 ```php
@@ -60,25 +76,27 @@ ResetPassword::createUrlUsing(function ($user, string $token) {
 });
 ```
 
-
-- Email verification url and mail is set in the Notifications/VerifyEmail.php file
+- Default expiration time for tokens are set in the `config/sanctum.php` file 
+- If you want you can change it (ALWAYS GIVE EXPIRATION TIME IN SECONDS or it may lead to unexpected behaviour).
+- Default Expiration time for Access token is `1 day` and for Refresh token is `7 days`.
 
 
 ## Frontend Setup
 
-Next, ensure that your application's `APP_URL` and `FRONTEND_URL` environment variables are set to `http://localhost:8000` and `http://localhost:3000`, respectively.
-
-After defining the appropriate environment variables, you may serve the Laravel application using the `serve` Artisan command:
-
-```bash
-# Serve the application...
-php artisan serve --host=localhost --port=8000
-```
-
-Next, `cd nextjs` and install its dependencies with `yarn install` or `npm install`. Then, copy the `.env.example` file to `.env.local` and supply the URL of your backend:
+- Next, `cd nextjs` and install its dependencies with `yarn install` or `npm install`. Then, copy the `.env.example` file to `.env.local` and supply the URL of your backend:
 
 ```
 NEXT_BACKEND_URL=http://localhost:8000
+```
+
+Important Note: 
+
+Generate any random key for `CSRF_SECRET_KEY` and add that value in the `.env.local` file.
+
+IF YOU DONT SPECIFY THIS KEY YOUR APPLICATION WILL CRASH.
+
+```
+CSRF_SECRET_KEY=any_random_key
 ```
 
 Finally, run the application via `npm run dev`. The application will be available at `http://localhost:3000`:

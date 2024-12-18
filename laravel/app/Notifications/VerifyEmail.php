@@ -85,7 +85,7 @@ class VerifyEmail extends Notification
             'hash' => sha1($notifiable->getEmailForVerification()),
         ]);
 
-        return str_replace(Config::get('app.url') . '/api', Config::get('app.frontend_url'), $url);
+        return str_replace(Config::get('app.api_url') , Config::get('app.frontend_url'), $url);
     }
 
     /**
