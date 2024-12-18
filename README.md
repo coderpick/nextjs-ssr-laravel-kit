@@ -92,7 +92,7 @@ npm run dev
 ## How This Starter Kit Works
 ### Calling APIs via Backend Proxy (Nextjs Backend)
 
-#### we are treating Nextjs backend as a proxy which will call our laravel backend apis.
+#### We are treating Nextjs backend as a Proxy which will call our laravel Backend Apis.
 
 ### Data Fetching (Axios)
 - we are fetching data from laravel backend apis via Nextjs backend.
@@ -114,7 +114,7 @@ const response = await axios.get('/api/invoices'); <--- laravel backend api
 
 ```js
 // pages/api/users.js <--- Nextjs backend api
-const response = await axios.get('/api/products'); <--- laravel backend api
+const response = await axios.get(`${process.env.NEXT_BACKEND_URL}/api/products`); <--- laravel backend api
 ```
 
 ### withAuth.js
@@ -273,16 +273,5 @@ export const VERIFY_HASH_ROUTE                      = '/api/email/verify/[userId
 
 ## Contributing
 
-Thank you for considering contributing to Breeze Next! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-Please review [our security policy](https://github.com/laravel/breeze-next/security/policy) on how to report security vulnerabilities.
-
-## License
-
-Laravel Breeze Next is open-sourced software licensed under the [MIT license](LICENSE.md).
+Let me know any issues you found or if you want to add any enhancements or features .
+This repo is open for contributions.
