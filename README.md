@@ -1,10 +1,12 @@
-# Laravel Breeze - Next.js (SSR - Server Side Authentication) Edition ▲
+# Laravel Breeze - Next.js (SSR-Server Side Authentication) Edition ▲
 
 ## Introduction
 
 This is a SSR Next.js frontend for a Laravel backend apis which includes authentication, authorization, csrf protection, and more.
-I tried to make it with next-auth but that library is very much confusing including the refresh token, cookie expiration and seems confusing for first time users. so i built this starter kit in a simple way.
-Core features:
+It uses similar structure of the laravel breeze. 
+I tried to make it with next-auth library but it's very much confusing including the refresh token, cookie expiration setting and it seems very confusing for the first time users. so i built this starter kit in a simple way.
+
+### Core features:
 - Stateless Authentication
 - SSR Authentication
 - Middleware checks for protected routes, guest routes, verify email just like laravel.
@@ -12,11 +14,13 @@ Core features:
 - HttpOnly Cookie secure tokens
 - Security guidelines (COOKIES, CSRF) following OWASP Guidelines
 - Refresh Token for preventing token expiration
-
+- Reusable authorization helpers
 
 ## Prerequisites
 - Laravel Sanctum (Token Based Authentication)
 - Next.js Pages Router With API Routes Handler
+
+> Note: Do not install laravel breeze api package instead use this one mentioned in the repo because it uses token based authentication instead of sessions
 
 ## Installation Laravel Setup
 
