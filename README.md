@@ -4,7 +4,7 @@
 
 This is a SSR Next.js frontend for a Laravel backend apis which includes authentication, authorization, csrf protection, and more.
 It uses similar structure of the laravel breeze. 
-I tried to make it with next-auth library but it's very much confusing including the refresh token, cookie expiration setting and it seems very confusing for the first time users. so i built this starter kit in a simple way.
+I tried to make it with next-auth library but I found its implementation overly complex, especially for managing refresh tokens, cookie expiration, and other configurations, So Instead I created this starter kit to keep things simple and straightforward.
 
 ### Core features:
 - Stateless Authentication
