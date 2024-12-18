@@ -18,22 +18,49 @@ Core features:
 - Laravel Sanctum (Token Based Authentication)
 - Next.js Pages Router With API Routes Handler
 
-### Installation
+## Installation Laravel Setup
 
-First clone this laravel backend and install its dependencies.
-
-```
-git clone https://github.com/CODE-AXION/laravel-breeze-next-ssr.git
-```
+#### First clone this Laravel Backend and install its dependencies.
 
 ```
-cd laravel-breeze-next-ssr
+git clone https://github.com/CODE-AXION/nextjs-ssr-laravel-kit
+```
+
+```
+cd /laravel-breeze-next-ssr/laravel
 ```
 
 ```
 composer install
 ```
 
+```
+php artisan migrate
+```
+
+
+```
+php artisan db:seed
+```
+
+```
+php artisan serve --host=localhost --port=8000
+```
+
+### Additional Information:
+- Reset password url is set in the AuthServiceProvider.php file
+
+```php
+ResetPassword::createUrlUsing(function ($user, string $token) {
+    return config('app.frontend_url') . '/reset-password/' . $token . '?email=' . $user->email;
+});
+```
+
+
+- Email verification url and mail is set in the Notifications/VerifyEmail.php file
+
+
+## Frontend Setup
 
 Next, ensure that your application's `APP_URL` and `FRONTEND_URL` environment variables are set to `http://localhost:8000` and `http://localhost:3000`, respectively.
 
@@ -44,7 +71,7 @@ After defining the appropriate environment variables, you may serve the Laravel 
 php artisan serve --host=localhost --port=8000
 ```
 
-Next, clone this repository and install its dependencies with `yarn install` or `npm install`. Then, copy the `.env.example` file to `.env.local` and supply the URL of your backend:
+Next, `cd nextjs` and install its dependencies with `yarn install` or `npm install`. Then, copy the `.env.example` file to `.env.local` and supply the URL of your backend:
 
 ```
 NEXT_BACKEND_URL=http://localhost:8000
