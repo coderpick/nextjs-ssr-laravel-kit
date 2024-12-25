@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use App\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -33,7 +34,9 @@ class RegisteredUserController extends Controller
         $accessToken = $user->createToken('access_token', ['*'], now()->addSeconds(config('sanctum.access_token_expiration')))->plainTextToken;
         $refreshToken = $user->createToken('refresh_token', ['*'], now()->addSeconds(config('sanctum.refresh_token_expiration')))->plainTextToken;
     
-        event(new Registered($user));
+        if(!$user->hasVerifiedEmail()){
+            $user->notify(new VerifyEmail);
+        }
     
         return response()->json([
             'user' => $user,

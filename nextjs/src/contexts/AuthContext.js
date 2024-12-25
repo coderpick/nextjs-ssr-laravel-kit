@@ -14,16 +14,29 @@ export function AuthProvider({ children, initialUser }) {
     });
 
     useEffect(() => {
+        let isMounted = true; 
+
         if (!csrf.token) {
             const fetchCsrfToken = async () => {
-                const response = await axios.get('/api/auth/csrf');
-                setCsrf({
-                    token: response.data.token,
-                });
+                try {
+                    const response = await axios.get('/api/auth/csrf');
+                    if (isMounted) {
+                        setCsrf({
+                            token: response.data.token,
+                        });
+                    }
+                } catch (error) {
+                    toast.error('PAGE EXPIRED')
+                }
             };
             fetchCsrfToken();
         }
-    }, [csrf.token]);
+
+        return () => {
+            isMounted = false; 
+        };
+    }, [csrf.token]); 
+
     
 
 
