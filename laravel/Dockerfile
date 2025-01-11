@@ -69,7 +69,4 @@ USER laravel
 # Expose port 80 for Apache.
 EXPOSE 80
 
-# Start Apache web server.
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-
-# You can add any additional configurations or commands required for Laravel 10 here.

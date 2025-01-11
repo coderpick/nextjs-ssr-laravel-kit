@@ -8,7 +8,7 @@ fi
 
 # Copy .env file if it doesn't exist
 if [ ! -f .env.local ]; then
-    cp .env.example .env.local
+    cp .env.docker.dev .env.local
 fi
 
 

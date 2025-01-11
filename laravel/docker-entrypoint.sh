@@ -5,9 +5,10 @@ echo "Installing composer dependencies..."
 composer install --no-interaction --optimize-autoloader
 
 echo "Copying .env file..."
+
 # Copy .env file if it doesn't exist
 if [ ! -f .env ]; then
-    cp .env.example .env
+    cp .env.docker.dev .env
 fi
 
 echo "Generating application key..."
@@ -19,5 +20,6 @@ echo "Running migrations and seeding..."
 php artisan migrate --seed --no-interaction --force
 
 echo "Starting Apache..."
+
 # Start Apache
 apache2-foreground
