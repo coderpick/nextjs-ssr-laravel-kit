@@ -41,11 +41,19 @@ const handler = async (req, res) => {
         res.status(response.status).json(response.data);
         
     } catch (error) {
-        if(error.response.status == 422) {
-            res.status(error.response.status).json(error.response.data);
+        if (error?.response) {
+            if (error?.response?.status === 422) {
+                res.status(error?.response?.status).json(error?.response?.data);
+            } else {
+                res.status(error?.response?.status).json({
+                    message: `An error occurred during register (${error?.response?.status})`,
+                });
+            }
         } else {
-            res.status(error.response.status).json({
-                message: `An error occurred during login ${error.response.status}`,
+            // Handle errors without a response (e.g., network issues)
+            res.status(500).json({
+                message: 'An unexpected error occurred. Please try again later.',
+                error: error?.message, // Optionally include error details for debugging
             });
         }
 
