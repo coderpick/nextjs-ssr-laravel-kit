@@ -19,36 +19,45 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@gmail.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('password'),
-        ]);
+        try {
+            \DB::beginTransaction();
 
-        $user = \App\Models\User::where('email', 'admin@gmail.com')->first();
-        
-        // // create admin role and customer role and assign some permissions  
-        $adminRole = \Spatie\Permission\Models\Role::create(['name' => 'admin']);
-        $customerRole = \Spatie\Permission\Models\Role::create(['name' => 'author']);
+            \App\Models\User::create([
+                'name' => 'Admin User',
+                'email' => 'admin@gmail.com',
+                'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            ]);
 
-        // create permissions
-        $createPostPermission = \Spatie\Permission\Models\Permission::create(['name' => 'create post']);
-        $editPostPermission = \Spatie\Permission\Models\Permission::create(['name' => 'edit post']);
-        $deletePostPermission = \Spatie\Permission\Models\Permission::create(['name' => 'delete post']);
+            $user = \App\Models\User::where('email', 'admin@gmail.com')->first();
+            
+            // // create admin role and customer role and assign some permissions  
+            $adminRole = \Spatie\Permission\Models\Role::create(['name' => 'admin']);
+            $customerRole = \Spatie\Permission\Models\Role::create(['name' => 'author']);
 
-        $adminRole->givePermissionTo($createPostPermission);
-        $adminRole->givePermissionTo($editPostPermission);
-        $adminRole->givePermissionTo($deletePostPermission);
+            // create permissions
+            $createPostPermission = \Spatie\Permission\Models\Permission::create(['name' => 'create post']);
+            $editPostPermission = \Spatie\Permission\Models\Permission::create(['name' => 'edit post']);
+            $deletePostPermission = \Spatie\Permission\Models\Permission::create(['name' => 'delete post']);
 
-        $customerRole->givePermissionTo($createPostPermission);
+            $adminRole->givePermissionTo($createPostPermission);
+            $adminRole->givePermissionTo($editPostPermission);
+            $adminRole->givePermissionTo($deletePostPermission);
 
-        $user->assignRole('admin'); 
+            $customerRole->givePermissionTo($createPostPermission);
 
-        $user->assignRole('author');
+            $user->assignRole('admin'); 
 
-        $changeSystemSettingPermission = \Spatie\Permission\Models\Permission::create(['name' => 'change system setting']);
+            $user->assignRole('author');
 
-        $user->givePermissionTo($changeSystemSettingPermission);
+            $changeSystemSettingPermission = \Spatie\Permission\Models\Permission::create(['name' => 'change system setting']);
 
+            $user->givePermissionTo($changeSystemSettingPermission);
+
+            \DB::commit();
+        } catch (\Throwable $th) {
+            \DB::rollBack();
+            // throw $th;
+        }
     }
 }
+

@@ -14,43 +14,55 @@ const VerifyEmail = () => {
     });
 
     useEffect(() => {
-
         const verifyEmail = async () => {
-            if(csrf.token){
-                const res = await front.get(`/api/auth/email/verify-email?userId=${userId}&hash=${hash}&expires=${expires}&signature=${signature}`,{
-                    headers: {
-                        'x-csrf-token': csrf.token
-                    },
+            try {
+                if (csrf.token) {
+                    const res = await front.get(
+                        `/api/auth/email/verify-email?userId=${userId}&hash=${hash}&expires=${expires}&signature=${signature}`,
+                        {
+                            headers: {
+                                'x-csrf-token': csrf.token,
+                            },
+                        }
+                    );
+    
+                    if (res.data.status === 'redirect') {
+                        setState({
+                            ...state,
+                            loading: false,
+                            error: "",
+                        });
+    
+                        // Redirect to Home route of the user after 3 seconds.
+                        setTimeout(() => {
+                            router.push(res.data.redirect_url);
+                        }, 3000);
+                        return;
+                    }
+    
+                    // Set error message if verification failed.
+                    if (res.error) {
+                        setState({
+                            ...state,
+                            loading: false,
+                            error: res.error,
+                        });
+                    }
+                }
+            } catch (error) {
+                // Handle errors
+                console.error("Error verifying email:", error);
+                setState({
+                    ...state,
+                    loading: false,
+                    error: "An unexpected error occurred while verifying the email.",
                 });
-
-                if (res.data.status == 'redirect') {
-                    setState({
-                        ...state,
-                        loading: false,
-                        error: "",
-                    });
-
-                    // // Redirect to Home route of the user after 3 seconds.
-                    setTimeout(() => {
-                        router.push(res.data.redirect_url);
-                    }, 3000);
-                    return;
-                }
-
-                // Set error message if verification failed.
-                if (res.error) {
-                    setState({
-                        ...state,
-                        loading: false,
-                        error: res.error,
-                    });
-                }
             }
-        }
-
+        };
+    
         verifyEmail();
-
     }, [csrf.token]);
+    
     
     const headerText = () => {
         if (state.loading) {
