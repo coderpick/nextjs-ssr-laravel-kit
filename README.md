@@ -21,8 +21,23 @@ I tried to make it with next-auth library but I found its implementation overly 
 - Next.js Pages Router With API Routes Handler
 
 > Note: Do not install laravel breeze api package instead use this one mentioned in the repo because it uses token based authentication instead of sessions .
+## Installation with Docker
 
-## Installation Laravel Setup
+```
+git clone https://github.com/CODE-AXION/nextjs-ssr-laravel-kit
+```
+
+```
+cd nextjs-ssr-laravel-kit
+```
+
+```
+docker compose up 
+```
+> that's it, you can access the application at http://localhost:3000
+
+## Installation without Docker (Laravel Setup)
+
 
 #### First clone this Laravel Backend and install its dependencies.
 
