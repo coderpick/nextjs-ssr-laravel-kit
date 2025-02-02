@@ -18,7 +18,7 @@ RUN useradd -g laravel -u ${UID} -s /bin/sh -m laravel
 
 # Set environment variables.
 ENV ACCEPT_EULA=Y
-LABEL maintainer="er.avinashrathod@gmail.com"
+LABEL maintainer="codeaxion77@gmail.com"
 
 
 # Install system dependencies.
