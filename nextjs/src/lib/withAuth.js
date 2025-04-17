@@ -43,7 +43,19 @@ export function withAuth(getServerSidePropsFunc) {
         const user = await getUserData();
         const pathname = context.resolvedUrl.split('?')[0];
 
-        const isProtectedRoute     = PROTECTED_ROUTES.includes(pathname);
+        let isDynamicPath = false;
+        let dynamicPathName = null;
+        const queryKey = Object.keys(context.query)[0];
+        if (queryKey && ['id', 'slug'].includes(queryKey)) {
+            const value = context.query[queryKey];
+            // check for UUID or numeric value
+            if (/^[0-9a-fA-F-]{36}$/.test(value) || /^[0-9]+$/.test(value)) {
+                isDynamicPath = true;
+                dynamicPathName = pathname.replace(value, `[${queryKey}]`);
+            }
+        }
+        
+        const isProtectedRoute     = isDynamicPath ? PROTECTED_ROUTES.includes(dynamicPathName) : PROTECTED_ROUTES.includes(pathname);
         const isGuestRoute         = GUEST_ROUTES.includes(pathname);
         const isEmailVerifiedRoute = pathname.includes(VERIFY_EMAIL_ROUTE) || pathname.includes(EMAIL_VERIFICATION_ROUTE);
 
